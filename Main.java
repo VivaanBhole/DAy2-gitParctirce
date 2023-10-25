@@ -22,9 +22,9 @@ class Main
 
     static int analyze2DArray(int[][] arr)
     {
-        for (int[] row : arr)
+        for (int i = 1; i < arr.length-1; i++)
         {
-            int n = firstEvenWithSum(row);
+            int n = analyzeRow(i, arr);
             if (n != -1)
                 return n;
         }
@@ -32,13 +32,22 @@ class Main
         return -1;
     }
 
-    static int firstEvenWithSum(int[] arr)
+    static int analyzeRow(int i, int[][] arr)
     {
-        for (int i = 1; i < arr.length-1; i++)
+        for (int j = 1; j < arr[i].length-1; j++)
         {
-            if (arr[i] % 2 == 0 && arr[i-1] + arr[i+1] > 17)
-                return arr[i];
+                int n = checkNum(i, j, arr);
+                if (n != 1)
+                    return n;
         }
+        return -1;
+    }
+
+    static int checkNum(int i, int j, int[][] arr)
+    {
+        if (arr[i][j] % 2 == 0 && 
+            arr[i-1][j] + arr[i+1][j] + arr[i][j+1] + arr[i][j-1] > 33)
+            return arr[i][j];
         return -1;
     }
 
