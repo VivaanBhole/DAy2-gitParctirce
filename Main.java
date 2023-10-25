@@ -3,7 +3,8 @@ class Main
     public static void main(String[] args) {
         int[][] a = squareArrayN(5);
         print2DArr(a);
-        System.out.println("First Even: "+analyze2DArray(a));
+        int n = analyze2DArray(a);
+        System.out.println("First Even With Required Sum: "+ (n != -1 ? n : " Not Present"));
     }
 
     static int[][] squareArrayN(int n)
@@ -23,7 +24,7 @@ class Main
     {
         for (int[] row : arr)
         {
-            int n = firstEven(row);
+            int n = firstEvenWithSum(row);
             if (n != -1)
                 return n;
         }
@@ -31,11 +32,13 @@ class Main
         return -1;
     }
 
-    static int firstEven(int[] arr)
+    static int firstEvenWithSum(int[] arr)
     {
-        for (int i : arr)
-                if (i % 2 == 0)
-                    return i;
+        for (int i = 1; i < arr.length-1; i++)
+        {
+            if (arr[i] % 2 == 0 && arr[i-1] + arr[i+1] > 17)
+                return arr[i];
+        }
         return -1;
     }
 
